@@ -10,7 +10,7 @@ Background:
     Then verify welcome page
 
 @Regression
-Scenario: Add Employee
+Scenario: AddEmployee
 
     When click on PIM menu
     And click on Add Employee
