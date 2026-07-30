@@ -6,8 +6,10 @@ Feature: OrangeHRM Login
     Given navigate the application
     When enter the usernamelogin
     |username|
+    |user$123|
     When enter the passwordlogin
     |password|
+    |Admin@456|
     When click on Login
     Then verify welcome page
     When click on logout
