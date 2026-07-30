@@ -6,7 +6,7 @@ Feature: OrangeHRM Login
     Given navigate the application
     When enter the usernamelogin
     |username|
-    |user$123|
+    |Admin@8899|
     When enter the passwordlogin
     |password|
     |Admin@456|
