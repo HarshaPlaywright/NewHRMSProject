@@ -9,6 +9,3 @@ Feature: OrangeHRM Login
     When click on Login
     Then verify welcome page
     When click on logout
-
-
-    
