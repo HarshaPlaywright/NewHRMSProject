@@ -16,6 +16,3 @@ Feature: MultipleRecord Handling OrangeHRM Login
 
     |loginusername|loginpassword|
     |username|password|
-    |username123|password123|
-    |username|password123|
-    |username123|password| 

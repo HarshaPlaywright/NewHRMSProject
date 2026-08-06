@@ -4,26 +4,14 @@ Feature: OrangeHRM Login
   
     Given open the firefox browser
     Given navigate the application
-    When enter the usernamelogin
+    When enter the userlog
     |username|
-    |Admin@8899|
-    When enter the passwordlogin
+    |username|
+    When enter the passwordlog
     |password|
-    |Admin@456|
+    |password|
     When click on Login
     Then verify welcome page
     When click on logout
 
-    Scenario: datatable approch with header for OrangeHRM Login
-  
-    Given open the firefox browser
-    Given navigate the application
-    When enter the usernamelogin
-    |usernamelogin|
-    |username|
-    When enter the passwordlogin
-    |passwordlogin|
-    |password|
-    When click on Login
-    Then verify welcome page
-    When click on logout
+   

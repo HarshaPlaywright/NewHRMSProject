@@ -5,13 +5,15 @@ setDefaultTimeout(60000);
 let browser:Browser;
 let page:Page;
 let frame: FrameLocator;
-Given('open the firefox browser', async()=> {
-  browser = await firefox.launch({ headless: false })
-  
+Given('open the firefox browser', async () => {
+    browser = await firefox.launch({
+        headless: false
+    });
 });
 
-Given('navigate the application', async()=> {
-   page = await browser.newPage();
+Given('navigate the application', async () => {
+    const context = await browser.newContext();
+    page = await context.newPage();
 
     await page.goto("http://127.0.0.1/orangehrm-2.5.0.2/login.php");
 });
@@ -35,16 +37,16 @@ Then('verify welcome page', async()=> {
 
 //======================================================================
 //======================direct login approch================
-/*When('enter the username {string}', async (loginusername:string)=> {
+When('enter the username {string}', async (loginusername:string)=> {
   await page.locator("//input[@name='txtUserName']").fill(loginusername);
 });
 
 When('enter the password {string}', async  (loginpassword:string) =>{
  await page.locator("//input[@name='txtPassword']").fill(loginpassword);
-});*/
+});
 
 //================DataTable login Approch without Header=======================
-/*When('enter the usernamelogin',  async (dataTable:DataTable)=> {
+When('enter the userlog',  async (dataTable:DataTable)=> {
   //read all data from datatable w/o header
   let data:string[][]= dataTable.raw();
   //syntax 
@@ -56,7 +58,7 @@ When('enter the password {string}', async  (loginpassword:string) =>{
   
 });
 
-When('enter the passwordlogin', async (dataTable:DataTable) => {
+When('enter the passwordlog', async (dataTable:DataTable) => {
    //read all data from datatable w/o header
   let data:string[][]= dataTable.raw();
   //syntax 
@@ -65,31 +67,8 @@ When('enter the passwordlogin', async (dataTable:DataTable) => {
   //print password
   console.log("password :"+passwordlogin);
   await page.locator("//input[@name='txtPassword']").fill(passwordlogin);
-});*/
-
-//=============Data Table approch with header=============
-
-/*When('enter the usernamelogin', async (dataTable:DataTable)=> {
-
-  //Read all the data from table including header
-  let data:Record<string, string>[]=dataTable.hashes();
-  let usernamelogin= data[0]["usernamelogin"];
-  //print username
-  console.log("username :"+usernamelogin);
-  await page.locator("//input[@name='txtUserName']").fill(usernamelogin);
 });
 
-When('enter the passwordlogin', async (dataTable:DataTable)=> {
-
-  
-  //Read all the data from table including header
-  let data:Record<string, string>[]=dataTable.hashes();
-  let passwordlogin= data[0]["passwordlogin"];
-  //print username
-  console.log("Password :"+passwordlogin);
-  await page.locator("//input[@name='txtPassword']").fill(passwordlogin);
- 
-});*/
 When('click on PIM menu', async ()=> {
   await page.locator("xpath=//li[@id='pim']").click();
 });
@@ -145,7 +124,7 @@ When('click on search button', async ()=> {
 Then('verify employee is added successfully', async ()=> {
 
   
-  await expect(frame.locator("//a[contains(text(),'Akki')]")).toHaveText("Akki la DSU");
+ await expect(frame.locator("//a[contains(text(),'Akki')]")).toHaveText("Akki la DSU");
 });
 
 
@@ -153,4 +132,26 @@ Then('verify employee is added successfully', async ()=> {
   await page.locator("xpath= //a[text()='Logout']").click();
 });*/
 
+When("enter the username", async () => {
+    await page.locator("//input[@name='txtUserName']").fill("username");
+});
 
+When("enter the password", async () => {
+    await page.locator("//input[@name='txtPassword']").fill("password");
+});
+
+When("click on logout", async function () {
+    await page.locator("//a[text()='Logout']").click();
+});
+
+import { After } from "@cucumber/cucumber";
+
+After(async () => {
+    if (page) {
+        await page.close();
+    }
+
+    if (browser) {
+        await browser.close();
+    }
+});
