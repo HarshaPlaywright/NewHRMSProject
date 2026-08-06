@@ -7,7 +7,7 @@ let page:Page;
 let frame: FrameLocator;
 Given('open the firefox browser', async () => {
     browser = await firefox.launch({
-        headless: false
+        headless: true
     });
 });
 
